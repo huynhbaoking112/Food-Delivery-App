@@ -1,40 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fooddelivery/components/my_button.dart';
 import 'package:fooddelivery/components/my_text_field.dart';
-import 'package:fooddelivery/pages/home.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
+   final void Function()?  togglePage;
   
-  final void Function()?  togglePage;
-  
-  const LoginPage({super.key, required this.togglePage});
+  const RegisterPage({super.key, required this.togglePage});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  //textEditingControllers
+class _RegisterPageState extends State<RegisterPage> {
+
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
 
+  final TextEditingController cofirmpasswordController = TextEditingController();
 
-  //login method
-  void signIn(){
-    
-      //fill out auithentication here
-
-
-      //navigate to home page
-
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(),));
-
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Center(
           child: Column(
@@ -46,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 20,),
 
               //Banner
-              Text("Food Delivery App", style: TextStyle(
+              Text("Create an account", style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 20,
                 color: Theme.of(context).colorScheme.inversePrimary
@@ -63,9 +51,14 @@ class _LoginPageState extends State<LoginPage> {
               MyTextField(hintText: 'Password', obscureText: true, textController: passwordController),
 
               const SizedBox(height: 10,),
+              
+              //ConfirmPassword Field
+              MyTextField(hintText: 'Confirm Password', obscureText: true, textController: cofirmpasswordController),
+
+              const SizedBox(height: 10,),
 
               //SignIn
-              MyButton(name: "Sign In", onTap: signIn),
+              MyButton(name: "Sign Up", onTap: (){}),
 
               //Navigate to RegisterPage
               const SizedBox(height: 10,),
@@ -73,11 +66,11 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Not a member? '),
+                  const Text('Have an account? '),
                   GestureDetector(
                     onTap:
                       widget.togglePage,
-                    child: const Text('Register now', style: TextStyle(
+                    child: const Text('Login now', style: TextStyle(
                       fontWeight: FontWeight.w700
                     ),),
                   )
@@ -86,6 +79,6 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
         ),
-    );
+    );;
   }
 }
