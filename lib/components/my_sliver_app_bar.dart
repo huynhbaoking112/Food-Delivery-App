@@ -1,4 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:fooddelivery/models/restaurant.dart';
+import 'package:fooddelivery/pages/cart_page.dart';
 import 'package:fooddelivery/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -18,14 +22,36 @@ class MySliverAppBar extends StatelessWidget {
       pinned: true,
       actions: [
         //cart button
-        IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.shopping_cart,
-              color: Provider.of<ThemeProvider>(context).isDarkMode
-                  ? Colors.white
-                  : Colors.black,
-            )),
+        Stack(children: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CartPage(),
+                    ));
+              },
+              icon: Icon(
+                Icons.shopping_cart,
+                color: Provider.of<ThemeProvider>(context).isDarkMode
+                    ? Colors.white
+                    : Colors.black,
+              )),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Container(
+              margin: EdgeInsets.only(right: 20),
+              // margin: EdgeInsets.only(right: 20),
+              padding: EdgeInsets.all(5),
+              decoration:
+                  BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+              child: Text(
+                Provider.of<Restaurent>(context).getTotalItemCount().toString(),
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          )
+        ]),
       ],
       title: const Text("Sunset Diner"),
       foregroundColor: Theme.of(context).colorScheme.inversePrimary,
