@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fooddelivery/components/my_button.dart';
 import 'package:fooddelivery/models/food.dart';
+import 'package:fooddelivery/models/restaurant.dart';
+import 'package:provider/provider.dart';
 
 class FoodPage extends StatefulWidget {
   final Food food;
@@ -19,13 +21,24 @@ class FoodPage extends StatefulWidget {
 }
 
 class _FoodPageState extends State<FoodPage> {
-  // List<bool> check = [];
+  
 
-  // @override
-  // void initState() {
-  //   check = List<bool>.filled(widget.food.availableAddons.length, false);
-  //   super.initState();
-  // }
+  //method to add to cart
+  void addToCart(Food food,  Map<Addon, bool> selectedAddons ){
+    final List<Addon> listAddons = [];
+     selectedAddons.forEach((key, value) { 
+        if(value == true){
+          listAddons.add(key);
+        }
+     });
+
+    // print(object)
+    //  Provider.of<Restaurent>(context).addToCart(food, listAddons);
+    context.read<Restaurent>().addToCart(food, listAddons);
+
+     Navigator.pop(context);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +60,7 @@ class _FoodPageState extends State<FoodPage> {
                       // food name
                       Text(
                         widget.food.name,
-                        style: TextStyle(
+                        style:const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
 
@@ -129,7 +142,7 @@ class _FoodPageState extends State<FoodPage> {
                       ),
 
                       //button -> addon cart
-                      MyButton(name: 'Add to cart', onTap: () {}),
+                      MyButton(name: 'Add to cart', onTap:() => addToCart(widget.food,widget.selectedAddons)),
 
                       const SizedBox(
                         height: 25,
@@ -153,13 +166,13 @@ class _FoodPageState extends State<FoodPage> {
                     child: Opacity(
                       opacity: 0.6,
                       child: Container(
-                        margin: EdgeInsets.only(left: 25, top: 20),
-                          padding: EdgeInsets.all(8),
+                        margin:const EdgeInsets.only(left: 25, top: 20),
+                          padding:const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Theme.of(context).colorScheme.secondary
                           ),
-                          child: Icon(
+                          child:const Icon(
                             Icons.arrow_back,
                             size: 30,
                           )),
