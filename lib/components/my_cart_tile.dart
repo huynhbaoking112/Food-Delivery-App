@@ -31,7 +31,7 @@ class MyCartTile extends StatelessWidget {
                       width: 100,
                     )),
 
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
 
@@ -43,27 +43,31 @@ class MyCartTile extends StatelessWidget {
                     Text(cartItem.food.name),
 
                     //food price
-                    Text('\$' + cartItem.food.price.toString(), style: TextStyle(color: Theme.of(context).colorScheme.primary),)
+                    Text(
+                      '\$' + cartItem.food.price.toString(),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary),
+                    ),
+
+                    const SizedBox(
+                      height: 10,
+                    ),
+
+                    // increment or decrement quantity
+                    QuantitySelector(
+                      food: cartItem.food,
+                      onDecrement: () {
+                        restaurant.removeFromCart(cartItem);
+                      },
+                      onIncrement: () {
+                        // Provider.of<Restaurent>(context).addToCart(cartItem.food, cartItem.selectedAddons);
+                        restaurant.addToCart(
+                            cartItem.food, cartItem.selectedAddons);
+                      },
+                      quantity: cartItem.quantity,
+                    )
                   ],
                 ),
-
-                SizedBox(
-                  width: 10,
-                ),
-
-                // increment or decrement quantity
-                QuantitySelector(
-                  food: cartItem.food,
-                  onDecrement: () {
-                    restaurant.removeFromCart(cartItem);
-                  },
-                  onIncrement: () {
-                    // Provider.of<Restaurent>(context).addToCart(cartItem.food, cartItem.selectedAddons);
-                    restaurant.addToCart(
-                        cartItem.food, cartItem.selectedAddons);
-                  },
-                  quantity: cartItem.quantity,
-                )
               ],
             ),
 

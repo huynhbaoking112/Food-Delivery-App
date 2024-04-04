@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:fooddelivery/components/my_button.dart';
 import 'package:fooddelivery/components/my_text_field.dart';
 import 'package:fooddelivery/pages/home.dart';
+import 'package:fooddelivery/services/auths/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   
@@ -21,14 +22,25 @@ class _LoginPageState extends State<LoginPage> {
 
 
   //login method
-  void signIn(){
+  void signIn() async {
     
-      //fill out auithentication here
+     if (emailController!='' && passwordController!='') {
+      try {
+        AuthService credential = AuthService();
+        await credential.signInWithEmailPassword(
+            emailController.text, passwordController.text);
+      } catch (e) {
+        showDialog(context: context, builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),);
+      }
 
+    } else {
+      showDialog(context: context, builder: (context) => AlertDialog(
+          title: Text('Password and confirmPassword is not match!'),
+        ),);
+    }
 
-      //navigate to home page
-
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(),));
 
   }
 

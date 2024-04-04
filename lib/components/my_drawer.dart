@@ -4,9 +4,21 @@ import 'package:flutter/widgets.dart';
 import 'package:fooddelivery/components/my_drawer_tile.dart';
 import 'package:fooddelivery/pages/home.dart';
 import 'package:fooddelivery/pages/settings_page.dart';
+import 'package:fooddelivery/services/auths/auth_service.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
+
+  void logOut(BuildContext context) async  {
+      try {
+        final credential = AuthService();
+        await credential.signOut();
+      } catch (e) {
+        showDialog(context: context, builder: (context) => AlertDialog(
+          title: Text('Password and confirmPassword is not match!'),
+        ),);
+      }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +60,7 @@ class MyDrawer extends StatelessWidget {
           Spacer(),
 
           //Logout list tile
-          MyDrawrtTile(icon: Icons.logout, onTap: (){}, text: 'L O G O U T '),
+          MyDrawrtTile(icon: Icons.logout, onTap:() => logOut(context), text: 'L O G O U T '),
 
           SizedBox(height: 25,)
 
