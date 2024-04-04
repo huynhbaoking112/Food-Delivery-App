@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fooddelivery/auth/login_or_register.dart';
 import 'package:fooddelivery/models/restaurant.dart';
+import 'package:fooddelivery/pages/delivery_progress_page.dart';
 import 'package:fooddelivery/pages/home.dart';
 import 'package:fooddelivery/pages/login_page.dart';
 import 'package:fooddelivery/pages/register.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       // home: const LoginOrRegister(),
-      home: HomePage(),
+      home: DeliveryProgressPage(),
       theme: Provider.of<ThemeProvider>(context).themeData,
     );
   }
